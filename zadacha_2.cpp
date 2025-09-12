@@ -1,6 +1,5 @@
 #include <iostream>
 #include <locale>
-#include <functional>
 #include <chrono>
 
 using namespace std;
