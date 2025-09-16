@@ -17,6 +17,7 @@ int algo(int num)
     while (num != 153)
     {
         string num_s = to_string(num);
+        cout << num_s << "    ";
         int sum = 0;
 
         for (char digit_c : num_s)
@@ -28,7 +29,7 @@ int algo(int num)
         num = sum;
         iters++;
     }
-
+    cout << num << "    Итого: ";
     return iters;
 }
 
