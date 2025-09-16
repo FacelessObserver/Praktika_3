@@ -5,7 +5,16 @@
 using namespace std;
 using namespace std::chrono;
 
-long long combs_r(int n, int m, long long &iters)
+double factorial(int n)
+{
+    double res = 1;
+    for (int i = 2; i <= n; i++)
+    {
+        res *= i;
+    }
+    return res;
+}
+long int combs_r(int n, int m, long int &iters)
 {
     iters ++;
 
@@ -21,20 +30,10 @@ long long combs_r(int n, int m, long long &iters)
     return combs_r(n - 1, m - 1, iters) + combs_r(n - 1, m, iters);
 }
 
-long long combs_i(int n, int m, long long &iters)
+ long long combs_i(int n, int m, int &iters)
 {
-    if (m > n - m)
-    {
-        m  = n - m;
-    }
-    long long result = 1;
-
-    for (int i = 1; i <= m; i++)
-    {
-        iters ++;
-        result = result * (n - m + i) / i;
-    }
-    return result, iters;
+    iters = 2 * n;
+    return (factorial(n) / (factorial(m) * factorial(n - m)));
 }
 
 int main()
@@ -54,13 +53,13 @@ int main()
     }
 
     auto start = high_resolution_clock::now();
-    long long iters_r = 0;
-    long long res_r = combs_r(n, m, iters_r);
+    long int iters_r = 0;
+    long int res_r = combs_r(n, m, iters_r);
     auto stop = high_resolution_clock::now();
     auto dur_r = duration_cast<microseconds>(stop - start);
 
     start = high_resolution_clock::now();
-    long long iters_i = 0;
+    int iters_i = 0;
     long long res_i = combs_i(n, m, iters_i);
     stop = high_resolution_clock::now();
     auto dur_i = duration_cast<microseconds>(stop - start);
