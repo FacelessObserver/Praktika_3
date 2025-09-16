@@ -3,23 +3,26 @@
 
 using namespace std;
 
-int optimizer(int current = 1, int target = 100, int steps = 0)
+int optimizer(int target, int current, int steps)
 {
-    if (current > target)
+    cout << current << endl;
+
+    if (current == target)
     {
-        return target;
+        cout << "Минимальное количество операций: " << steps;
+        return steps;
     }
 
-    else if (current == target)
+    steps++;
+
+    if (current % 2 == 0 && current / 2 >= target)
     {
-        return steps;
+        return optimizer(target, current / 2, steps);
     }
 
     else
     {
-        int op_1 = optimizer(current + 1, target, steps + 1);
-        int op_2 = optimizer(current * 2, target, steps + 1);
-        return min(op_1, op_2);
+        return optimizer(target, current - 1, steps);
     }
 }
 
@@ -27,6 +30,6 @@ int optimizer(int current = 1, int target = 100, int steps = 0)
 int main()
 {
     setlocale(LC_ALL, "Russian");
-    cout << "Минимальное количество операций: " << optimizer() << endl;
+    optimizer(1, 100, 0);
     return 0;
 }
